@@ -29,7 +29,7 @@ Close an account effortlessly through Bankist. The user-friendly interface guide
 
 ![Bankist](./images/bulbicon.jpg)
 
-As this is a solely localised system, only one user is desired to use this site and access multiple accounts by logging into different accounts observing debits and credits of each account (just to understand how this works). In order to ensure user-friendliness, the bulb account shows all the usernames along with their pins.
+As this is a solely localised system, only one user is desired to use this site and access multiple accounts by logging into different accounts observing debits and credits of each account (just to understand how this works). In order to ensure user-friendliness, the bulb icon shows all the usernames along with their pins on clicking.
 
 ## Getting Started
 
@@ -39,3 +39,5 @@ To get started with Bankist, follow these steps:
    ```bash
    git clone https://github.com/AnindoChoudhury/Bankist.git
    ```
+
+## Feel free to create issues related to bugs
