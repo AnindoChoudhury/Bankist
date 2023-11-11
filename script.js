@@ -4,36 +4,6 @@
 /////////////////////////////////////////////////
 // BANKIST APP
 
-// Data
-// const account1 = {
-//   owner: 'Jonas Schmedtmann',
-//   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-//   interestRate: 1.2, // %
-//   pin: 1111,
-// };
-
-// const account2 = {
-//   owner: 'Jessica Davis',
-//   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-//   interestRate: 1.5,
-//   pin: 2222,
-// };
-
-// const account3 = {
-//   owner: 'Steven Thomas Williams',
-//   movements: [200, -200, 340, -300, -20, 50, 400, -460],
-//   interestRate: 0.7,
-//   pin: 3333,
-// };
-
-// const account4 = {
-//   owner: 'Sarah Smith',
-//   movements: [430, 1000, 700, 50, 90],
-//   interestRate: 1,
-//   pin: 4444,
-// };
-
-// const accounts = [account1, account2, account3, account4];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -267,13 +237,13 @@ document.addEventListener("keydown",function(e)
 const takeLoan = function()
 {
   const loanAmt = Number(Math.floor(inputLoanAmount.value)); 
-
+  clearInterval(logoutTimer); 
+  timerFun(); 
   // Loan should be sanctioned only if there is at least one deposited amount which is more than 10% of the loan amount && loan amount > 0
 
    if((activeAcc.movements).some(item=>item>=(0.1*loanAmt)) && loanAmt>0)
    {
-    clearInterval(logoutTimer); 
-    timerFun(); 
+    
     activeAcc.movements.push(loanAmt); 
     const giveLoan = setTimeout(function()
     {
@@ -303,6 +273,8 @@ document.addEventListener("keydown",function(e)
 // close callback function 
 const closeAcc = function()
 {
+  clearInterval(logoutTimer); 
+  timerFun();
     if(initials(activeAcc.owner)===inputCloseUsername.value && activeAcc.pin===Number(inputClosePin.value))
     {
        containerApp.style.opacity="0%"; 
@@ -332,7 +304,7 @@ const interestCalculation = function()
   
 //  filter positive values from the movements array => map a new array multiplied with the rate => filter values greater than or equal to 1  => reduce the array to the sum 
   const sumOfInterest = (activeAcc.movements).filter(item=>(item>0)).map(item => (item*activeAcc.interestRate/100)).filter(item=>(item>=1)).reduce((acc,item)=>acc+item,0);
-  labelSumInterest.textContent=`${sumOfInterest}€`; 
+  labelSumInterest.textContent=`${sumOfInterest.toFixed(2)}€`; 
 }
 
 // Sort transactions
@@ -359,12 +331,15 @@ const btnSubmit = document.querySelector(".btn-submit");
 const inputDatabaseName = document.querySelector(".database-username"); 
 const inputDatabasePin = document.querySelector(".database-pin"); 
 const inputDatabaseDeposit = document.querySelector(".database-deposit"); 
+const inputDatabaseInterest = document.querySelector(".database-interest")
 const localLogo = document.querySelector(".local-logo"); 
 const databaseBox = document.querySelector(".local-database-box"); 
 const databasePage = document.querySelector(".local-database-page"); 
 const brand = document.querySelector(".brand"); 
 const navLogin = document.querySelector(".navbar-login"); 
-
+const detailsActual = document.querySelector(".details-actual");
+const detailsBox = document.querySelector(".user-details-box");  
+const lightBulb = document.querySelector(".bi-lightbulb"); 
 // Database input reveal
 localLogo.addEventListener("mouseover",function()
 {
@@ -373,8 +348,15 @@ localLogo.addEventListener("mouseover",function()
     databaseBox.style.opacity="100%"; 
     brand.style.opacity="100%"; 
 })
-
-const accounts=[]; 
+////////////////////////////
+const obj = {
+  owner : "anindo ch",
+  pin : 1111,
+  movements : [1200,3400,120],
+  interestRate : 1.2
+}
+const accounts=[obj],usernamesArray=[],pinArray=[]; 
+//////////////////////////
 btnNext.addEventListener("click",function()
 {
           if(inputDatabaseName.value!=="" && +inputDatabasePin.value>=1000 && +inputDatabasePin.value<=9999)
@@ -383,17 +365,22 @@ btnNext.addEventListener("click",function()
               {
                  owner : inputDatabaseName.value,
                  pin : Number(inputDatabasePin.value),
-                 movements : [Number(inputDatabaseDeposit.value)]
+                 movements : [Number(inputDatabaseDeposit.value)],
+                 interestRate : +(inputDatabaseInterest.value)
               }));
+              usernamesArray.push(initials(inputDatabaseName.value)); 
+              pinArray.push(inputDatabasePin.value); 
               inputDatabaseName.value=""; 
               inputDatabasePin.value=""; 
               inputDatabaseDeposit.value=""; 
+              inputDatabaseInterest.value="";
             } 
             else 
             {
               inputDatabaseName.value=""; 
               inputDatabasePin.value="";
               inputDatabaseDeposit.value="";   
+              inputDatabaseInterest.value=""; 
             }
 })
 
@@ -405,20 +392,52 @@ btnSubmit.addEventListener("click",function()
             {
               owner : inputDatabaseName.value,
               pin : Number(inputDatabasePin.value),
-              movements : [Number(inputDatabaseDeposit.value)]
-            }));     
-            console.log(accounts); 
+              movements : [Number(inputDatabaseDeposit.value)],
+              interestRate : +(inputDatabaseInterest.value)
+            }));   
+            usernamesArray.push(initials(inputDatabaseName.value)); 
+            pinArray.push(inputDatabasePin.value)  
             navLogin.classList.remove("hidden"); 
             databasePage.classList.add("hidden");
+            lightBulb.classList.remove("hidden"); 
   } 
   else
   {   
        inputDatabaseName.value=""; 
        inputDatabasePin.value=""; 
+       inputDatabaseInterest.value="";
        inputDatabaseDeposit.value=""; 
   }
 })     
 
+// Lightbulb
+const userInfo = (arr1,arr2) => 
+{   detailsActual.innerHTML=""; 
+    arr1.forEach((item,i) => 
+      {
+        detailsActual.innerHTML+=`<div class="username-and-pin"><p class="username">${item}</p><p class="pin">${arr2[i]}</p></div>`
+      })
+}
+let glow = false; 
+lightBulb.addEventListener("click",function()
+{
+  // Make it glow
+  if(!glow)
+  {
+      lightBulb.innerHTML='<path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13h-5a.5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm3 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1-.5-.5z"/>'; 
+      lightBulb.style.fill="#E9B824"; 
+      detailsBox.style.opacity="100%"; 
+      userInfo(usernamesArray,pinArray); 
+  }
+  // Does not make it glow
+  else
+  {
+    lightBulb.innerHTML='<path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6zm6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1z"/>'; 
+    lightBulb.style.fill="black";
+    detailsBox.style.opacity="0%"; 
+  }
+  glow=!glow; 
+})
 
 
 

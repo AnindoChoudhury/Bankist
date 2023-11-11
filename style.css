@@ -163,7 +163,7 @@ nav {
 {
   opacity: 0%;
   height : 100%; 
-  width : 40%;
+  width : 60%;
   border : 1px solid rgb(145, 137, 137); 
   border-radius: 50px;
   display: flex;
@@ -428,4 +428,54 @@ h2 {
 {
   display : none; 
   transition : display 3s; 
+}
+.user-details-box
+{
+  z-index: 3;
+  position: absolute;
+  top : 48%; 
+  right : 6rem; 
+  width : 15%; 
+  padding : 1rem 1rem; 
+  opacity : 0%; 
+  border-radius : 26px; 
+  background-color: #EBE3D5;
+  box-shadow: 1px 1px 10px rgb(181, 174, 174);
+  display : flex;
+  transition: all 0.3s; 
+  flex-direction : column; 
+  align-items: center;
+  gap : 1rem; 
+}
+.user-details-box h1
+{
+  margin-bottom : 1rem;
+}
+.user-details-box p
+{
+  font-size : 1.4rem; 
+  font-weight: 500;
+}
+
+.username-and-pin
+{
+  width : 100%; 
+  display : flex; 
+  justify-content : space-between;
+}
+.details-actual
+ {
+  display: flex;
+  flex-direction: column;
+ }
+.bi-lightbulb
+{
+  z-index : 3; 
+  position: absolute;
+  right : 1rem; 
+  top : 50%; 
+}
+.bi-lightbulb:hover
+{
+  cursor : pointer; 
 }
