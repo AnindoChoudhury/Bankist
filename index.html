@@ -16,7 +16,7 @@
   </head>
   <body>
     <!-- TOP NAVIGATION -->
-    <nav class="navbar-login">
+    <nav class="navbar-login hidden">
       <p class="welcome">Log in to get started</p>
       <img src="logo.png" alt="Logo" class="logo" />
       <form class="login">
@@ -36,7 +36,7 @@
       </form>
     </nav>
     <!-- Create local bank system  -->
-    <div class="container local-database-page hidden">
+    <div class="container local-database-page">
       <img src="./logo.png" alt="logo" class="local-logo" />
       <div class="brand">
         <img src="./logo.png" alt="logo" />
@@ -49,6 +49,11 @@
             type="text"
             placeholder="name"
             class="database-inputs database-username"
+          />
+          <input
+            type="number"
+            placeholder="initial deposit"
+            class="database-inputs database-deposit"
           />
           <input
             type="text"
@@ -65,7 +70,7 @@
     </div>
 
     <!-- Main processes starts -->
-    <main class="app">
+    <main class="app hidden">
       <!-- BALANCE -->
       <div class="balance">
         <div>

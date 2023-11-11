@@ -1,0 +1,6 @@
+account1 = 
+{
+    owner : xxxx xxxx ,
+    interestRate : xx , 
+    pin : xx 
+}; 

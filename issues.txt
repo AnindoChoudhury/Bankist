@@ -1,0 +1,24 @@
+List of issues : 
+
+1. On entering wrong details, everything is displayed except the movements [Fixed]
+
+Solution : It must display everything intact as the recent displayed account ✅
+
+2. Amount can't be transferred in the same account [Fixed]
+
+Solution : The transferTo input field must not be equal to the activeAcc owner ✅
+
+3. Interest calculation [Unfixed] 
+Solution : Interest is applied on each deposit and their sum is taken if it is more than 1% ✅
+
+4. Logout timer [Fixed] 
+
+// Local Database System
+
+5. Mouse pointer changes from "default" to "pointer" on hover over invisible (Next and Submit) buttons on hover (While their opacity = 0) 
+
+6. No two pin should be equal and display a message on entering same pin for different users 
+
+7. Check that the user enters a full name.
+
+8. A message should be displayed if loan is requested and no deposit amount is more than 10% of the loan amount. 

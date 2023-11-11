@@ -5,35 +5,35 @@
 // BANKIST APP
 
 // Data
-const account1 = {
-  owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 1111,
-};
+// const account1 = {
+//   owner: 'Jonas Schmedtmann',
+//   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+//   interestRate: 1.2, // %
+//   pin: 1111,
+// };
 
-const account2 = {
-  owner: 'Jessica Davis',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  interestRate: 1.5,
-  pin: 2222,
-};
+// const account2 = {
+//   owner: 'Jessica Davis',
+//   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+//   interestRate: 1.5,
+//   pin: 2222,
+// };
 
-const account3 = {
-  owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 3333,
-};
+// const account3 = {
+//   owner: 'Steven Thomas Williams',
+//   movements: [200, -200, 340, -300, -20, 50, 400, -460],
+//   interestRate: 0.7,
+//   pin: 3333,
+// };
 
-const account4 = {
-  owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 4444,
-};
+// const account4 = {
+//   owner: 'Sarah Smith',
+//   movements: [430, 1000, 700, 50, 90],
+//   interestRate: 1,
+//   pin: 4444,
+// };
 
-const accounts = [account1, account2, account3, account4];
+// const accounts = [account1, account2, account3, account4];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -60,10 +60,7 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
-const localLogo = document.querySelector(".local-logo"); 
-const databaseBox = document.querySelector(".local-database-box"); 
-const brand = document.querySelector(".brand"); 
-const navLogin = document.querySelector(".navbar-login"); 
+
 
 
 // -----------------------------------------------------
@@ -81,16 +78,6 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////
-
-localLogo.addEventListener("mouseover",function()
-{
-    
-    localLogo.style.opacity="0%"; 
-    databaseBox.style.opacity="100%"; 
-    brand.style.opacity="100%"; 
-})
-
-
 
 // Finds out initials of a name to match the entered username with the actual username's initials 
 
@@ -119,7 +106,7 @@ const add = function (array)
     {
         s+=item; 
     })
-    return +s.toFixed(2); 
+    return (s.toFixed(2)); 
 }
 
 // tracks movements 
@@ -133,7 +120,6 @@ const track = function (money,i)
 
     html = `<div class="movements__row">
     <div class="movements__type movements__type--${str}">${i+1} ${str}</div>
-    <div class="movements__date">3 days ago</div>
     <div class="movements__value">${money.toFixed(2)}€</div>
   </div>`;
     containerMovements.innerHTML=html+containerMovements.innerHTML; 
@@ -148,7 +134,7 @@ const inMoney = function (arr)
        if(ele > 0)
        sum=sum+ele; 
     })
-    return +sum.toFixed(2) ;
+    return sum.toFixed(2) ;
 }
 
 // Calculates total withdrawal money
@@ -160,7 +146,7 @@ const outMoney = function (arr)
        if(ele < 0)
        sum=sum+ele; 
     })
-    return +Math.abs(sum).toFixed(2) ;
+    return Math.abs(sum).toFixed(2) ;
 }
 let logoutTimer; 
 const timerFun = function()
@@ -188,18 +174,23 @@ let usernameValue,pinValue,activeAcc,currentBalance;
 // Callback function for login button
 const login = function()
 {
+    
     usernameValue = inputLoginUsername.value; 
     pinValue = Number(inputLoginPin.value);
     for(const item of accounts)
     {
        if(valid(item,pinValue,usernameValue))
        {
+          
           clearInterval(logoutTimer); 
           timerFun(); 
           activeAcc=item;  //stores present account object 
+          console.log(activeAcc); 
           containerMovements.innerHTML="";
+          if(containerApp.classList.contains("hidden"))
+          containerApp.classList.remove("hidden"); 
           containerApp.style.opacity = "100%";  
-          labelWelcome.textContent = "Welcome back, "+item.owner.slice(0,item.owner.indexOf(' ')); 
+          labelWelcome.textContent = "Welcome, "+item.owner[0].toUpperCase()+item.owner.slice(1,item.owner.indexOf(' ')); 
           currentBalance = add(item.movements); 
           labelBalance.textContent=`${currentBalance}€`; 
            
@@ -220,7 +211,6 @@ const login = function()
             weekday : "long"
           }
           labelDate.textContent=new Intl.DateTimeFormat(locale,options).format(date);           
-        
           break; 
        }
     }
@@ -249,7 +239,8 @@ const transferMoney = function()
             containerMovements.innerHTML=""; //resets the innerhtml of the movements
             activeAcc.movements.push(0-transferAmountValue); //pushes the withdrawal in the active-acc movements array
             item.movements.push(transferAmountValue); //pushes the deposited account in the recipent 
-            labelBalance.textContent=`${add(activeAcc.movements)}€`; 
+            currentBalance=add(activeAcc.movements); 
+            labelBalance.textContent=`${currentBalance}€`; 
             activeAcc.movements.forEach(track); 
             labelSumOut.textContent = `${outMoney(activeAcc.movements)}€`;
             inputTransferAmount.value = ""; 
@@ -319,6 +310,9 @@ const closeAcc = function()
        inputCloseUsername.value=""; 
        inputClosePin.value = ""; 
        inputClosePin.blur(); 
+       labelWelcome.textContent="Login to get started"; 
+       inputLoginUsername.value=""; 
+       inputLoginPin=""; 
     }
 }
 // close operations 
@@ -360,38 +354,74 @@ btnSort.addEventListener("click",function()
 // local database 
 
 // Local banking system variables 
-// const btnNext = document.querySelector(".btn-next"); 
-// const btnSubmit = document.querySelector(".btn-submit"); 
-// const inputDatabaseName = document.querySelector(".database-username"); 
-// const inputDatabasePin = document.querySelector(".database-pin"); 
+const btnNext = document.querySelector(".btn-next"); 
+const btnSubmit = document.querySelector(".btn-submit"); 
+const inputDatabaseName = document.querySelector(".database-username"); 
+const inputDatabasePin = document.querySelector(".database-pin"); 
+const inputDatabaseDeposit = document.querySelector(".database-deposit"); 
+const localLogo = document.querySelector(".local-logo"); 
+const databaseBox = document.querySelector(".local-database-box"); 
+const databasePage = document.querySelector(".local-database-page"); 
+const brand = document.querySelector(".brand"); 
+const navLogin = document.querySelector(".navbar-login"); 
 
-// const account1 =
-// {
-//   owner: "",
-//   movements: [],
-//   interestRate: 0, // %
-//   pin: 0,
-// }
-// const accounts = [];
-// let count = 1; 
+// Database input reveal
+localLogo.addEventListener("mouseover",function()
+{
+    localLogo.style.opacity="0%";
+    setTimeout(() => {localLogo.classList.add("hidden")},300); 
+    databaseBox.style.opacity="100%"; 
+    brand.style.opacity="100%"; 
+})
 
-// btnNext.addEventListener("click",function()
-// {
-//   const account =
-//   {
-//     owner: "",
-//     movements: [],
-//     interestRate: 0, // %
-//     pin: 0,
-//   }
-// });
+const accounts=[]; 
+btnNext.addEventListener("click",function()
+{
+          if(inputDatabaseName.value!=="" && +inputDatabasePin.value>=1000 && +inputDatabasePin.value<=9999)
+            { 
+              accounts.push(new Object(
+              {
+                 owner : inputDatabaseName.value,
+                 pin : Number(inputDatabasePin.value),
+                 movements : [Number(inputDatabaseDeposit.value)]
+              }));
+              inputDatabaseName.value=""; 
+              inputDatabasePin.value=""; 
+              inputDatabaseDeposit.value=""; 
+            } 
+            else 
+            {
+              inputDatabaseName.value=""; 
+              inputDatabasePin.value="";
+              inputDatabaseDeposit.value="";   
+            }
+})
 
-//------------------------------------------------
-// setInterval(function()
-// {
-//   const date = new Date(); 
-//   console.log(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()); 
-// },1000); 
+btnSubmit.addEventListener("click",function()
+{
+  if(inputDatabaseName.value!=="" && +inputDatabasePin.value>=1000 && +inputDatabasePin.value<=9999)
+  {
+           accounts.push(new Object(
+            {
+              owner : inputDatabaseName.value,
+              pin : Number(inputDatabasePin.value),
+              movements : [Number(inputDatabaseDeposit.value)]
+            }));     
+            console.log(accounts); 
+            navLogin.classList.remove("hidden"); 
+            databasePage.classList.add("hidden");
+  } 
+  else
+  {   
+       inputDatabaseName.value=""; 
+       inputDatabasePin.value=""; 
+       inputDatabaseDeposit.value=""; 
+  }
+})     
+
+
+
+
 
 
 
