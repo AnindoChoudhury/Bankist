@@ -17,8 +17,9 @@ Solution : Interest is applied on each deposit and their sum is taken if it is m
 
 5. Mouse pointer changes from "default" to "pointer" on hover over invisible (Next and Submit) buttons on hover (While their opacity = 0) 
 
-6. No two pin should be equal and display a message on entering same pin for different users 
+6. No two pin should be equal and display a message on entering same pin for different users [High priority]
 
 7. Check that the user enters a full name.
 
 8. A message should be displayed if loan is requested and no deposit amount is more than 10% of the loan amount. 
+

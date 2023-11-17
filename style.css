@@ -433,7 +433,7 @@ h2 {
 {
   z-index: 3;
   position: absolute;
-  top : 48%; 
+  top : 68%; 
   right : 6rem; 
   width : 15%; 
   padding : 1rem 1rem; 
@@ -473,7 +473,7 @@ h2 {
   z-index : 3; 
   position: absolute;
   right : 1rem; 
-  top : 50%; 
+  top : 70%; 
 }
 .bi-lightbulb:hover
 {

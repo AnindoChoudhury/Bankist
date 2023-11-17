@@ -35,20 +35,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // -----------------------------------------------------
 
-
-
-//------------------------------------------------------
-
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-/////////////////////////////////////////////
-
 // Finds out initials of a name to match the entered username with the actual username's initials 
 
 const initials = function (str)
@@ -155,7 +141,6 @@ const login = function()
           clearInterval(logoutTimer); 
           timerFun(); 
           activeAcc=item;  //stores present account object 
-          console.log(activeAcc); 
           containerMovements.innerHTML="";
           if(containerApp.classList.contains("hidden"))
           containerApp.classList.remove("hidden"); 
@@ -206,6 +191,8 @@ const transferMoney = function()
   {
       if(transferToValue===initials(item.owner) && transferToValue!==initials(activeAcc.owner) && transferAmountValue<=currentBalance && transferAmountValue>0)
       {
+           console.log(activeAcc) ;
+           console.log(item); 
             containerMovements.innerHTML=""; //resets the innerhtml of the movements
             activeAcc.movements.push(0-transferAmountValue); //pushes the withdrawal in the active-acc movements array
             item.movements.push(transferAmountValue); //pushes the deposited account in the recipent 
@@ -349,13 +336,7 @@ localLogo.addEventListener("mouseover",function()
     brand.style.opacity="100%"; 
 })
 ////////////////////////////
-const obj = {
-  owner : "anindo ch",
-  pin : 1111,
-  movements : [1200,3400,120],
-  interestRate : 1.2
-}
-const accounts=[obj],usernamesArray=[],pinArray=[]; 
+const accounts=[],usernamesArray=[],pinArray=[]; 
 //////////////////////////
 btnNext.addEventListener("click",function()
 {
@@ -438,9 +419,3 @@ lightBulb.addEventListener("click",function()
   }
   glow=!glow; 
 })
-
-
-
-
-
-
