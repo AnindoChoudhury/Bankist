@@ -2,7 +2,7 @@
 
 ![Bankist](./images/readme1.jpg)
 
-Bankist is a minimalist banking web application that allows users to create a localized database of accounts with unique PINs. Users can perform various banking operations seamlessly within this simple yet effective platform.
+Bankist is a minimalist banking web application that allows users to create a localized database of accounts with unique PINs. Users can perform various banking operations seamlessly within this simple yet effective platform. This is a course project where the HTML and CSS code was provided. The JS code is entirely written by me, including a functionality that lets you create multiple accounts (The course was restricted to four hardcoded accounts).
 
 ## Features
 
