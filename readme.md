@@ -2,9 +2,9 @@
 
 ![Bankist](./images/readme1.jpg)
 
-Bankist is a minimalist banking web application that allows users to create a localized database of accounts with unique PINs. Users can perform various banking operations seamlessly within this simple yet effective platform. This is a course project where the HTML and CSS code was provided. The JS code is entirely written by me, including a functionality that lets you create multiple accounts (The course was restricted to four hardcoded accounts).
+Bankist is a minimalist banking web application that allows users to create localized database of accounts with unique PINs. Users can perform various banking operations seamlessly within this simple yet effective platform. This is a course project where the HTML and CSS code was provided. The JS code is entirely written by me, including a functionality that lets you create multiple accounts (The course was restricted to four hardcoded accounts).
 
-## Features
+#### Features
 
 ### 1. Transfer Money
 
@@ -25,13 +25,13 @@ Close an account effortlessly through Bankist. The user-friendly interface guide
 3. **Loan Request**: If eligible, request a loan based on the provided conditions.
 4. **Close Account**: When needed, close an account securely using the account closure feature.
 
-## The Bulb Icon
+### The Bulb Icon
 
 ![Bankist](./images/bulbicon.jpg)
 
 As this is a solely localised system, only one user is desired to use this site and access multiple accounts by logging into different accounts observing debits and credits of each account (just to understand how this works). In order to ensure user-friendliness, the bulb icon shows all the usernames along with their pins on clicking.
 
-## Getting Started
+### Getting Started
 
 To get started with Bankist, follow these steps:
 
